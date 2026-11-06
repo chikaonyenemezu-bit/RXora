@@ -12,7 +12,7 @@
   <a href="https://github.com/chikaonyenemezu-bit/manitoba-med-safety/actions/workflows/ci.yml"><img src="https://github.com/chikaonyenemezu-bit/manitoba-med-safety/actions/workflows/ci.yml/badge.svg" alt="Rxora CI" /></a>
 </p>
 
-**Live application:** [Rxora](https://manitoba-med-safety.vercel.app) *(existing address; update to your confirmed new Rxora domain)*  
+**Live application:** [Rxora](https://rxora-med.vercel.app/) *(existing address; update to your confirmed new Rxora domain)*  
 **Technology:** Next.js 16 · TypeScript · React · Tailwind CSS · Supabase · PostgreSQL · HL7 FHIR R4 · Python
 
 > **Portfolio demonstration only.** Rxora is not a production clinical system or a live DPIN integration. The medication and formulary datasets are sourced from published Manitoba and Health Canada materials; patient cases and dispensing histories used for reconciliation are synthetic. Do not use the application to make clinical decisions.
