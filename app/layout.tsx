@@ -6,8 +6,8 @@ import './globals.css'
 const geist = Geist({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Manitoba Medication Safety Platform',
-  description: 'FHIR R4 medication reconciliation for Manitoba hospital pharmacists',
+  title: 'Rxora',
+  description: 'Medication Intelligence, Connected.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
