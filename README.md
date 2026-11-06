@@ -1,21 +1,19 @@
-<p align="center">
-  <img src="public/images/rxora-logo.png" alt="Rxora" width="260" />
-</p>
 
-<h1 align="center">Rxora</h1>
-<p align="center"><strong>Connected Medication Intelligence</strong></p>
-<p align="center">
-  Formulary intelligence · Medication reconciliation · FHIR R4 interoperability
-</p>
+# Rxora
 
-<p align="center">
-  <a href="https://github.com/chikaonyenemezu-bit/manitoba-med-safety/actions/workflows/ci.yml"><img src="https://github.com/chikaonyenemezu-bit/manitoba-med-safety/actions/workflows/ci.yml/badge.svg" alt="Rxora CI" /></a>
-</p>
+**Connected Medication Intelligence**
 
-**Live application:** [Rxora](https://rxora-med.vercel.app/) *(existing address; update to your confirmed new Rxora domain)*  
+Formulary intelligence · Medication reconciliation · FHIR R4 interoperability
+
+[![Rxora CI](https://github.com/chikaonyenemezu-bit/manitoba-med-safety/actions/workflows/ci.yml/badge.svg)](https://github.com/chikaonyenemezu-bit/manitoba-med-safety/actions/workflows/ci.yml)
+
+**Live application:** [rxora-med.vercel.app](https://rxora-med.vercel.app/)
+
 **Technology:** Next.js 16 · TypeScript · React · Tailwind CSS · Supabase · PostgreSQL · HL7 FHIR R4 · Python
 
 > **Portfolio demonstration only.** Rxora is not a production clinical system or a live DPIN integration. The medication and formulary datasets are sourced from published Manitoba and Health Canada materials; patient cases and dispensing histories used for reconciliation are synthetic. Do not use the application to make clinical decisions.
+
+## Overview
 
 ## Overview
 
