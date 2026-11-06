@@ -1,6 +1,8 @@
+
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 
@@ -17,17 +19,34 @@ export default function Navbar() {
 
   return (
     <>
+      {/* Safety disclaimer */}
       <div className="bg-amber-50 border-b border-amber-200 px-4 md:px-8 py-2 text-xs text-amber-800">
         <div className="max-w-6xl mx-auto">
           Demonstration platform using real Manitoba formulary data and synthetic patient cases only. Not for clinical decision-making.
         </div>
       </div>
 
-      <nav className="bg-white border-b border-gray-200 px-4 md:px-8 h-14 flex items-center justify-between sticky top-0 z-50">
-        <Link href="/" className="text-sm font-bold text-gray-900 shrink-0">
-          Manitoba Med Safety
+      {/* Main navigation */}
+      <nav className="bg-white border-b border-gray-200 px-4 md:px-8 h-16 flex items-center justify-between sticky top-0 z-50">
+
+        {/* Rxora logo */}
+        <Link
+          href="/"
+          className="flex items-center shrink-0"
+          aria-label="Rxora Home"
+          onClick={() => setMenuOpen(false)}
+        >
+          <Image
+            src="/images/rxora-logo.png"
+            alt="Rxora"
+            width={180}
+            height={60}
+            className="h-12 w-auto object-contain"
+            priority
+          />
         </Link>
 
+        {/* Desktop navigation */}
         <div className="hidden md:flex items-center gap-1">
           {navLinks.map(({ href, label }) => {
             const active = pathname === href
@@ -36,6 +55,7 @@ export default function Navbar() {
               <Link
                 key={href}
                 href={href}
+                aria-current={active ? 'page' : undefined}
                 className={`text-sm font-medium px-3 py-1.5 rounded-md transition-colors ${
                   active
                     ? 'bg-blue-50 text-blue-700'
@@ -57,11 +77,14 @@ export default function Navbar() {
           </a>
         </div>
 
+        {/* Mobile menu button */}
         <button
+          type="button"
           className="md:hidden flex flex-col gap-1.5 p-2"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle navigation menu"
           aria-expanded={menuOpen}
+          aria-controls="rxora-mobile-menu"
         >
           <span
             className={`block w-5 h-0.5 bg-gray-900 transition-transform duration-200 ${
@@ -81,8 +104,12 @@ export default function Navbar() {
         </button>
       </nav>
 
+      {/* Mobile navigation */}
       {menuOpen && (
-        <div className="md:hidden bg-white border-b border-gray-200 px-4 py-3 flex flex-col gap-1 sticky top-14 z-40 shadow-sm">
+        <div
+          id="rxora-mobile-menu"
+          className="md:hidden bg-white border-b border-gray-200 px-4 py-3 flex flex-col gap-1 sticky top-16 z-40 shadow-sm"
+        >
           {navLinks.map(({ href, label }) => {
             const active = pathname === href
 
@@ -90,6 +117,7 @@ export default function Navbar() {
               <Link
                 key={href}
                 href={href}
+                aria-current={active ? 'page' : undefined}
                 className={`text-sm font-medium px-3 py-2 rounded-md transition-colors ${
                   active
                     ? 'bg-blue-50 text-blue-700'
