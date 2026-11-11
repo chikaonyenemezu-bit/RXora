@@ -38,8 +38,7 @@ export default function EDSPage() {
   const [sortBy, setSortBy] = useState<SortOption>('category')
 
   useEffect(() => {
-    setLoading(true)
-    setError(null)
+    // Initial state already represents a pending request (loading=true, error=null).
     supabase
       .from('mb_eds')
       .select('*')

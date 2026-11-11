@@ -6,7 +6,18 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
 
-function buildMedicationResource(drug: any) {
+type FormularyDrug = {
+  din: string
+  drug_name: string | null
+  product_name: string | null
+  manufacturer_code: string | null
+  dosage_form: string | null
+  formulary_status: string | null
+  interchangeable_group: string | null
+  price: number | null
+}
+
+function buildMedicationResource(drug: FormularyDrug) {
   return {
     resourceType: 'Medication',
     id: drug.din,

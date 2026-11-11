@@ -28,6 +28,11 @@ interface Drug {
   } | null
 }
 
+type EDSRecord = NonNullable<Drug['eds']> & { din: string }
+type DPDRecord = NonNullable<Drug['dpd']> & { din: string }
+type ManufacturerRecord = { abbreviation: string; manufacturer_name: string | null }
+type BenefitRecord = { product_name: string | null }
+
 type CoverageFilter = 'all' | 'general' | 'eds' | 'not-benefit'
 type SortOption = 'relevance' | 'price-low' | 'price-high' | 'name'
 
@@ -98,10 +103,18 @@ export default function FormularySearch() {
       dins.length ? supabase.from('dpd_drugs').select('din, company_name, active_ingredients, last_update').in('din', dins) : Promise.resolve({ data: [] }),
     ])
 
-    const edsMap = new Map((edsRes.data || []).map((e: any) => [e.din, e]))
-    const mfrMap = new Map((mfrRes.data || []).map((m: any) => [m.abbreviation, m.manufacturer_name]))
-    const benefitsSet = new Set((benefitsRes.data || []).map((b: any) => b.product_name?.toUpperCase()))
-    const dpdMap = new Map((dpdRes.data || []).map((d: any) => [d.din, d]))
+    const edsMap = new Map<string, EDSRecord>(
+      ((edsRes.data ?? []) as EDSRecord[]).map((e): [string, EDSRecord] => [e.din, e])
+    )
+    const mfrMap = new Map<string, string | null>(
+      ((mfrRes.data ?? []) as ManufacturerRecord[]).map((m): [string, string | null] => [m.abbreviation, m.manufacturer_name])
+    )
+    const benefitsSet = new Set<string | undefined>(
+      ((benefitsRes.data ?? []) as BenefitRecord[]).map((b) => b.product_name?.toUpperCase())
+    )
+    const dpdMap = new Map<string, DPDRecord>(
+      ((dpdRes.data ?? []) as DPDRecord[]).map((d): [string, DPDRecord] => [d.din, d])
+    )
 
     const merged = safeData.map((drug) => ({
       ...drug,

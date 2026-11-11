@@ -6,7 +6,27 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
 
-function buildMedicationResource(drug: any, dpd: any) {
+type FormularyDrug = {
+  din: string
+  drug_name: string | null
+  product_name: string | null
+  manufacturer_code: string | null
+  dosage_form: string | null
+  formulary_status: string | null
+  interchangeable_group: string | null
+  price: number | null
+}
+
+type DpdDrug = {
+  company_name: string | null
+  active_ingredients: string | null
+}
+
+type EdsDrug = {
+  therapeutic_category: string | null
+}
+
+function buildMedicationResource(drug: FormularyDrug, dpd: DpdDrug | null) {
   return {
     resourceType: 'Medication',
     id: drug.din,
@@ -39,7 +59,7 @@ function buildMedicationResource(drug: any, dpd: any) {
   }
 }
 
-function buildMedicationKnowledge(drug: any, eds: any) {
+function buildMedicationKnowledge(drug: FormularyDrug, eds: EdsDrug | null) {
   return {
     resourceType: 'MedicationKnowledge',
     id: `mk-${drug.din}`,

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 const STATS = [
-  { num: '4,075', label: 'Formulary DINs', sub: 'Real Manitoba formulary data' },
+  { num: '4,075', label: 'Formulary DINs', sub: 'Manitoba formulary data' },
   { num: '772', label: 'EDS Entries', sub: 'Exception Drug Status drugs' },
   { num: '10', label: 'Synthetic Cases', sub: 'Admission reconciliation scenarios' },
   { num: 'FHIR R4', label: 'Medication API', sub: 'DIN-based medication resources' },
@@ -383,27 +383,27 @@ export default function Home() {
               </div>
 
               <div>
-                <span className="text-white/30">"resourceType": </span>
-                <span className="text-pink-400">"Bundle"</span>
+                <span className="text-white/30">&quot;resourceType&quot;: </span>
+                <span className="text-pink-400">&quot;Bundle&quot;</span>
               </div>
 
               <div>
-                <span className="text-white/30">"type": </span>
-                <span className="text-emerald-400">"searchset"</span>
+                <span className="text-white/30">&quot;type&quot;: </span>
+                <span className="text-emerald-400">&quot;searchset&quot;</span>
               </div>
 
               <div>
-                <span className="text-white/30">"system": </span>
-                <span className="text-emerald-400">"http://health.canada.ca/din"</span>
+                <span className="text-white/30">&quot;system&quot;: </span>
+                <span className="text-emerald-400">&quot;http://health.canada.ca/din&quot;</span>
               </div>
 
               <div>
-                <span className="text-white/30">"profile": </span>
-                <span className="text-pink-400">"profile-medication-ca-core"</span>
+                <span className="text-white/30">&quot;profile&quot;: </span>
+                <span className="text-pink-400">&quot;profile-medication-ca-core&quot;</span>
               </div>
 
               <div>
-                <span className="text-white/30">"total": </span>
+                <span className="text-white/30">&quot;total&quot;: </span>
                 <span className="text-amber-400">20</span>
                 <span className="text-white/30"> results</span>
               </div>

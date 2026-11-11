@@ -47,6 +47,35 @@ const EXAMPLE_QUERIES = [
   },
 ]
 
+type FHIRIdentifier = {
+  system?: string
+  value?: string
+}
+
+type MedicationPreview = {
+  resourceType?: string
+  name?: string
+  status?: string
+  code?: {
+    text?: string
+    coding?: { display?: string }[]
+  }
+  identifier?: FHIRIdentifier[]
+}
+
+type FHIRBundleEntry = {
+  fullUrl?: string
+  resource?: MedicationPreview
+}
+
+type FHIRResponse = MedicationPreview & {
+  id?: string
+  total?: number
+  entry?: FHIRBundleEntry[]
+  issue?: { diagnostics?: string }[]
+  message?: string
+}
+
 type ResponseTab = 'summary' | 'pretty' | 'raw'
 type ResponseSummary = {
   resourceType?: string
@@ -57,7 +86,7 @@ type ResponseSummary = {
 
 export default function FHIRExplorer() {
   const [url, setUrl] = useState('/api/fhir/Medication?_text=metformin')
-  const [response, setResponse] = useState<any>(null)
+  const [response, setResponse] = useState<FHIRResponse | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [activeExample, setActiveExample] = useState<string | null>(null)
@@ -94,12 +123,12 @@ export default function FHIRExplorer() {
       const res = await fetch(cleanedUrl)
       const contentType = res.headers.get('content-type') || ''
       if (!contentType.includes('json')) throw new Error(`Expected JSON but received ${contentType || 'unknown content type'}.`)
-      const data = await res.json()
+      const data: FHIRResponse = await res.json()
       if (!res.ok) throw new Error(data?.issue?.[0]?.diagnostics || data?.message || `Request failed with status ${res.status}.`)
       setResponse(data)
       setActiveTab('summary')
-    } catch (e: any) {
-      setError(e.message || 'Request failed.')
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : 'Request failed.')
     } finally {
       setLoading(false)
     }
@@ -363,7 +392,7 @@ export default function FHIRExplorer() {
   )
 }
 
-function HumanReadableSummary({ response }: { response: any }) {
+function HumanReadableSummary({ response }: { response: FHIRResponse }) {
   const entries = Array.isArray(response.entry) ? response.entry : []
   const isBundle = response.resourceType === 'Bundle'
   const isMedication = response.resourceType === 'Medication'
@@ -398,11 +427,11 @@ function HumanReadableSummary({ response }: { response: any }) {
         <div>
           <p className="text-xs font-bold text-[#0f1923] mb-3">First results preview</p>
           <div className="space-y-2">
-            {entries.slice(0, 5).map((entry: any, i: number) => {
-              const resource = entry.resource || {}
+            {entries.slice(0, 5).map((entry, i) => {
+              const resource: MedicationPreview = entry.resource ?? {}
               const coding = resource.code?.coding?.[0]
               const text = resource.code?.text || coding?.display || resource.name || 'Unnamed resource'
-              const din = resource.identifier?.find((id: any) => id.system === 'http://health.canada.ca/din')?.value
+              const din = resource.identifier?.find((id) => id.system === 'http://health.canada.ca/din')?.value
               return (
                 <div key={entry.fullUrl || i} className="border border-[#0f1923]/8 rounded-lg p-3 bg-[#f8f7f4]">
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
@@ -438,7 +467,7 @@ function HumanReadableSummary({ response }: { response: any }) {
               { label: 'ID',     value: response.id || 'Not provided' },
               { label: 'Status', value: response.status || 'Not provided' },
               { label: 'Text',   value: response.code?.text || response.name || 'Not provided' },
-              { label: 'DIN',    value: response.identifier?.find((id: any) => id.system === 'http://health.canada.ca/din')?.value || 'Not provided' },
+              { label: 'DIN',    value: response.identifier?.find((id) => id.system === 'http://health.canada.ca/din')?.value || 'Not provided' },
             ].map((m) => (
               <div key={m.label} className="bg-[#f8f7f4] border border-[#0f1923]/8 rounded-lg p-3.5 min-w-0">
                 <p className="text-[10px] font-bold uppercase tracking-widest text-[#0f1923]/35 mb-1">{m.label}</p>

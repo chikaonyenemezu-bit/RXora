@@ -11,8 +11,8 @@ interface Patient {
   sex: string
   primary_diagnosis: string
   icd10ca_code: string
-  reported_medications: any[]
-  dpin_dispensing_history: any[]
+  reported_medications: Parameters<typeof reconcile>[0]
+  dpin_dispensing_history: Parameters<typeof reconcile>[1]
   clinical_notes: string
 }
 
@@ -30,7 +30,7 @@ export default function ReconciliationSimulator() {
   const [loadError, setLoadError] = useState<string | null>(null)
 
   useEffect(() => {
-    setLoadingPatients(true)
+    // The initial loading state is already true until the query settles.
     supabase
       .from('synthetic_patients')
       .select('*')
@@ -297,7 +297,10 @@ function RunningState({ patient }: { patient: Patient }) {
   )
 }
 
-function PatientSummary({ patient, summary }: { patient: Patient; summary: any }) {
+function PatientSummary({ patient, summary }: {
+  patient: Patient
+  summary: { discrepancies: number; totalFlags: number }
+}) {
   return (
     <div className="bg-white border border-[#0f1923]/8 rounded-xl p-5">
       <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
