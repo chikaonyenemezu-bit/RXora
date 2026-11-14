@@ -6,13 +6,12 @@ A medication lookup and reconciliation tool built on Manitoba formulary data, wi
 
 Demo: https://rxora-med.vercel.app/
 
-**Note:** this is a portfolio project, not a clinical tool. The formulary and EDS data come from published Manitoba Health and Health Canada files. All the patients and dispensing histories are made up. It does not connect to DPIN. Please don't use it for real clinical decisions.
+**Note:** This is a portfolio project, not a clinical tool. The formulary and EDS data come from published Manitoba Health and Health Canada files. All the patients and dispensing histories are made up. It does not connect to DPIN. Please don't use it for real clinical decisions.
 
 ## Why I built this
 
 I'm a pharmacist working in digital health. Medication reconciliation at admission is one of those things that sounds simple and isn't. You compare what the patient says they take with what the pharmacy actually dispensed, and the gaps are where the problems are. Manitoba has DPIN for the dispensing side, so I wanted to see what a reconciliation workflow built around that idea could look like, using real formulary data and fake patients.
 
-Some of the risk rules started out in my earlier project, [MedSync](https://github.com/chikaonyenemezu-bit/medsync), which was built for the German system. I rewrote them for Canadian DINs and Manitoba coverage rules.
 
 ## What it does
 
@@ -91,8 +90,6 @@ Health Canada DPD CSV     /                                    |
                                                        React frontend
 ```
 
-Most of the work went into the import scripts. Getting clean tables out of government PDFs took longer than building the UI.
-
 ## Data
 
 | Source | From | Rows imported |
@@ -106,9 +103,7 @@ Most of the work went into the import scripts. Getting clean tables out of gover
 The formulary data is the version effective April 1, 2026. These are the counts I imported, so the current official files may be different.
 
 
-## MedSync
 
-[MedSync](https://github.com/chikaonyenemezu-bit/medsync) is my other project. It does triage and care routing for German statutory insurance (Manchester Triage, SNOMED CT, ICD-10-GM, FHIR, provider search). Rxora takes the medication safety side of that and moves it to a Canadian setting.
 
 ## Disclaimer
 
