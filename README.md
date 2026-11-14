@@ -105,28 +105,6 @@ Most of the work went into the import scripts. Getting clean tables out of gover
 
 The formulary data is the version effective April 1, 2026. These are the counts I imported, so the current official files may be different.
 
-## Running locally
-
-```bash
-git clone https://github.com/chikaonyenemezu-bit/manitoba-med-safety.git
-cd manitoba-med-safety
-npm ci
-npm run dev
-```
-
-Then go to http://localhost:3000.
-
-You'll need Supabase credentials in `.env.local` for the search and database features. Don't commit that file.
-
-Other commands:
-
-```bash
-npm run lint
-npx tsc --noEmit
-npm run build
-```
-
-CI (`.github/workflows/ci.yml`) runs install, lint and type check on pushes and PRs to `main`.
 
 ## MedSync
 
