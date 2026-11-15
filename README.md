@@ -35,21 +35,6 @@ There are 10 made-up admission cases. Each one has a list of what the patient re
 - PRISCUS flags (potentially inappropriate meds in older adults)
 - risky combinations, based on rules covering 17 drug classes
 
-The cases:
-
-| Case | Patient | What comes up |
-|------|---------|---------------|
-| PT-001 | 74F, hip fracture | metformin dose mismatch, unreported lorazepam, PRISCUS |
-| PT-002 | 67M, COPD exacerbation | warfarin + clarithromycin, ramipril dose mismatch |
-| PT-003 | 58F, elective knee replacement | methotrexate + celecoxib, celecoxib not in history |
-| PT-004 | 82M, CHF | digoxin + amiodarone, furosemide dose mismatch, PRISCUS |
-| PT-005 | 45F, new-onset seizure | unreported topiramate, sertraline dose mismatch |
-| PT-006 | 8M, ALL maintenance | unreported allopurinol, mercaptopurine toxicity risk |
-| PT-007 | 34F, gestational diabetes | labetalol dose mismatch |
-| PT-008 | 71M, CKD stage 4 | metformin not in history, contraindicated in severe CKD |
-| PT-009 | 45M, HIV on ART | atorvastatin dose mismatch, unreported sildenafil |
-| PT-010 | 62F, rheumatoid arthritis | unreported ibuprofen, methotrexate + NSAID |
-
 The reconciliation result can also be exported as FHIR `MedicationStatement` resources.
 
 ### EDS browser
@@ -66,8 +51,6 @@ GET /api/fhir/Medication?_text=metformin
 GET /api/fhir/Medication?identifier=http://health.canada.ca/din|02223562
 GET /api/fhir/Medication/02223562
 ```
-
-DINs use the system `http://health.canada.ca/din`. I loosely followed the Infoway CA Core Medication profile (`http://infoway-inforoute.ca/fhir/StructureDefinition/profile-medication-ca-core`), but I haven't run it through any conformance testing.
 
 ## Stack
 
@@ -100,15 +83,12 @@ Health Canada DPD CSV     /                                    |
 | Manufacturer abbreviations | Manitoba Health | 550 |
 | Drug Product Database (human drugs) | Health Canada | 11,529 |
 
-The formulary data is the version effective April 1, 2026. These are the counts I imported, so the current official files may be different.
-
-
-
+The formulary data is effective as of April 1, 2026. These are the counts I imported so the current official files may be different.
 
 ## Disclaimer
 
-This is a learning and portfolio project. It isn't connected to any provincial system, it doesn't make EDS decisions, and it hasn't been validated for clinical use. If you're building something real, check the data and rules yourself first.
+This is a learning and portfolio project. It isn't connected to any provincial system, it doesn't make EDS decisions, and it hasn't been validated for clinical use.
 
 ## Contact
 
-Built by Chika Onyenemezu. MSc Industrial Pharmacy, currently studying digital health. Feel free to open an issue if you spot something wrong in the data or the rules.
+Built by Wilson Onyenemezu. MSc Industrial Pharmacy, currently studying digital health. Feel free to open an issue if you spot something wrong in the data or the rules.
